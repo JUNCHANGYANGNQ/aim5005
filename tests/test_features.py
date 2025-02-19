@@ -63,7 +63,7 @@ class TestFeatures(TestCase):
         assert (result == expected).all(), "Scaler transform does not return expected values. Expect {}. Got: {}".format(expected.reshape(1,-1), result.reshape(1,-1))
 
     # TODO: Add a test of your own below this line
-def test_min_max_scaler_negative_values(self):
+    def test_min_max_scaler_negative_values(self):
         """Test if MinMaxScaler correctly handles negative values"""
         data = [[-5, -10], [0, 0], [5, 10]]
         expected = np.array([[0., 0.], [0.5, 0.5], [1., 1.]])
@@ -71,6 +71,7 @@ def test_min_max_scaler_negative_values(self):
         scaler.fit(data)
         result = scaler.transform(data)
         assert np.allclose(result, expected),f"Scaler transform does not return expected values for negative inputs. Got: {result}"
-    
+
+
 if __name__ == '__main__':
     unittest.main()
