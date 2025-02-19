@@ -52,3 +52,22 @@ class StandardScaler:
     def transform(self, data: np.ndarray) -> np.ndarray:
         data = np.array(data)
         return (data - self.mean) / self.std
+
+
+class LabelEncoder:
+    def __init__(self):
+        self.classes_ = None
+
+    def fit(self, y):
+        y = np.array(y)
+        self.classes_ = np.unique(y)
+
+    def transform(self, y):
+        if self.classes_ is None:
+            raise ValueError("LabelEncoder has not been fitted yet.")
+        y = np.array(y)
+        return np.array([np.where(self.classes_ == label)[0][0] for label in y])
+
+    def fit_transform(self, y):
+        self.fit(y)
+        return self.transform(y)
