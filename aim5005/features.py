@@ -31,7 +31,7 @@ class MinMaxScaler:
         diff_max_min = self.maximum - self.minimum
         
         # TODO: There is a bug here... Look carefully! 
-        return x-self.minimum/(self.maximum-self.minimum)
+         return (x - self.minimum) / diff_max_min
     
     def fit_transform(self, x:list) -> np.ndarray:
         x = self._check_is_array(x)
@@ -42,4 +42,13 @@ class MinMaxScaler:
 class StandardScaler:
     def __init__(self):
         self.mean = None
-        raise NotImplementedError
+        self.std = None  
+    
+    def fit(self, data: np.ndarray) -> None:
+        data = np.array(data)
+        self.mean = data.mean(axis=0)
+        self.std = data.std(axis=0) + 1e-9  
+
+    def transform(self, data: np.ndarray) -> np.ndarray:
+        data = np.array(data)
+        return (data - self.mean) / self.std
