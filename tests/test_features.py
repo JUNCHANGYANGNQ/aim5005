@@ -70,7 +70,7 @@ def test_min_max_scaler_negative_values(self):
         scaler = MinMaxScaler()
         scaler.fit(data)
         result = scaler.transform(data)
-        assert np.allclose(result, expected),
+        assert np.allclose(result, expected),f"Scaler transform does not return expected values for negative inputs. Got: {result}"
     
 if __name__ == '__main__':
     unittest.main()
