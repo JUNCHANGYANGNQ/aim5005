@@ -1,4 +1,4 @@
-from aim5005.features import MinMaxScaler, StandardScaler
+from aim5005.features import MinMaxScaler, StandardScaler,LabelEncoder
 import numpy as np
 import unittest
 from unittest.case import TestCase
@@ -71,6 +71,21 @@ class TestFeatures(TestCase):
         scaler.fit(data)
         result = scaler.transform(data)
         assert np.allclose(result, expected),f"Scaler transform does not return expected values for negative inputs. Got: {result}"
+    
+    def test_label_encoder_fit(self):
+        encoder = LabelEncoder()
+        labels = ["cat", "dog", "fish", "cat", "dog"]
+        encoder.fit(labels)
+        assert (encoder.classes_ == np.array(["cat", "dog", "fish"])).all(), f"Classes incorrect: {encoder.classes_}"
+    
+    def test_label_encoder_transform(self):
+        encoder = LabelEncoder()
+        labels = ["cat", "dog", "fish", "cat", "dog"]
+        encoder.fit(labels)
+        transformed = encoder.transform(["dog", "cat", "fish"])
+        expected = np.array([1, 0, 2])
+        assert (transformed == expected).all(), f"Transformation incorrect. Got: {transformed}"
+
 
 
 if __name__ == '__main__':
